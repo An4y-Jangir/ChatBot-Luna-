@@ -1,0 +1,124 @@
+/* Futuristic Chatbot Design */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #0f3460, #16213e, #1a1a2e);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.chat-container {
+    width: 400px;
+    padding: 20px;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: 200% 200%;
+    animation: boxGradient 10s ease infinite;
+    border: 2px solid #00ffea;
+    border-radius: 15px;
+    box-shadow: 0px 0px 30px rgba(0, 255, 255, 0.9); /* Enhanced neon glow */
+    position: relative;
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes boxGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Bot Name Styles */
+.bot-name {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #00ffea;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #00ffea;
+    padding-bottom: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.9); /* Enhanced neon glow */
+}
+
+.chat-box {
+    border: 2px solid #00ffea;
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: 200% 200%;
+    animation: boxGradient 10s ease infinite;
+    box-shadow: inset 0px 0px 30px rgba(0, 255, 255, 0.9); /* Neon glow inside */
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #00ffea, #00c6ff);
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.9); /* Neon glow */
+}
+
+.user-message {
+    color: #0f3460;
+    background: linear-gradient(135deg, #00ffea, #00c6ff);
+}
+
+.bot-message {
+    color: #0f3460;
+    background: linear-gradient(135deg, #00c6ff, #00ffea);
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+#input-box {
+    flex: 1;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #00ffea;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: 200% 200%;
+    animation: boxGradient 10s ease infinite;
+    color: #fff;
+    margin-right: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.9); /* Neon glow */
+}
+
+#send-button {
+    padding: 15px 20px;
+    background-color: #00ffea;
+    color: #0f3460;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.9); /* Neon glow */
+    transition: transform 0.2s ease;
+}
+
+#send-button:hover {
+    transform: scale(1.1);
+}
