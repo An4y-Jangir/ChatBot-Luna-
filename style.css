@@ -1,4 +1,3 @@
-/* Futuristic Chatbot Design */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #1a1a2e, #0f3460, #16213e, #1a1a2e);
@@ -43,7 +42,6 @@ body {
     50% { transform: translateY(-10px); }
 }
 
-/* Bot Name Styles */
 .bot-name {
     text-align: center;
     font-size: 1.5em;
