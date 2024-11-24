@@ -5,14 +5,13 @@ from datetime import datetime
 from pytz import timezone
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app) 
 
 def handle_user_input(user_input):
     user_input = user_input.lower().strip()
 
     if "calculate" in user_input:
         try:
-            # Extract the expression and evaluate it
             expression = user_input.split("calculate", 1)[1].strip()
             result = eval(expression)
             return f"The result of {expression} is {result}."
