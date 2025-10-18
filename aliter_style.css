@@ -1,0 +1,277 @@
+/* Futuristic Chatbot Design - CYBERPUNK 2077 */
+:root {
+    /* Color Palette Shift: Neon Red/Pink and Cyber Yellow/Gold */
+    --color-primary: #ff007a;       /* Neon Pink/Red (Action/Highlight) */
+    --color-secondary: #ffee00;     /* Cyber Yellow/Gold (Alert/Data) */
+    --color-background: #0a0a1a;    /* Deep Blue/Black (Night City Sky) */
+    --color-dark-surface: #1d1d2b;  /* Darker Tech Blue (Panel Surface) */
+    --color-chat-bg: #11111f;       /* Inner Chat Panel Background */
+    
+    /* Sharper, High-Contrast Glows */
+    --chat-glow: 0 0 5px var(--color-primary), 0 0 10px var(--color-primary), 0 0 20px rgba(255, 0, 122, 0.4);
+    --hover-glow: 0 0 8px var(--color-secondary), 0 0 15px var(--color-secondary);
+}
+
+body {
+    font-family: 'Electrolize', 'Orbitron', sans-serif; /* Prefer a tech/futuristic font */
+    background: var(--color-background);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 50px 0;
+    overflow-x: hidden;
+    /* Add a subtle whole-screen noise layer */
+    position: relative;
+}
+
+/* -------------------- KEYFRAMES AND ANIMATIONS -------------------- */
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px var(--color-primary); }
+    50% { box-shadow: 0 0 15px var(--color-primary), 0 0 30px rgba(255, 0, 122, 0.6); }
+    100% { box-shadow: 0 0 5px var(--color-primary); }
+}
+
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: var(--chat-glow); }
+    20%, 24%, 55% { text-shadow: none; }
+}
+
+@keyframes scanline {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+/* New: Glitch/Noise for Cyberpunk Vibe */
+@keyframes screenGlitch {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(1px, -1px); filter: contrast(1.1); }
+    50% { transform: translate(-2px, 2px); filter: contrast(1.0); }
+    75% { transform: translate(2px, 1px); filter: contrast(1.2); }
+}
+
+/* -------------------- MAIN CONTAINER -------------------- */
+
+.main-container-wrapper {
+    display: flex;
+    position: relative;
+    transform: translateX(0);
+    /* Bouncy transition retained */
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+    /* Apply subtle glitch to the main view */
+    animation: screenGlitch 10s infinite alternate; 
+}
+
+.chat-container {
+    width: 400px;
+    padding: 20px;
+    background: var(--color-dark-surface);
+    border: 2px solid var(--color-primary); /* Thicker border */
+    border-radius: 10px; /* Sharper corners */
+    box-shadow: var(--chat-glow);
+    position: relative;
+    z-index: 10;
+    height: 500px;
+    box-sizing: border-box;
+    animation: pulse 3s infinite alternate; /* More aggressive pulse */
+}
+
+/* Wrapper push effect on hover */
+.main-container-wrapper:hover {
+    transform: translateX(-150px);
+}
+
+/* -------------------- CHAT BOX ELEMENTS -------------------- */
+
+.bot-name {
+    text-align: center;
+    font-size: 1.8em; /* Larger */
+    margin-bottom: 15px;
+    color: var(--color-secondary); /* Cyber Yellow name */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px; /* More spaced out */
+    padding-bottom: 10px;
+    border-bottom: 2px dashed var(--color-secondary); /* Dashed separator */
+    animation: flicker 1.5s infinite alternate; /* Faster flicker */
+}
+
+.chat-box {
+    border: 1px solid var(--color-primary);
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border-radius: 5px; /* Sharper corners */
+    background: var(--color-chat-bg);
+    box-shadow: inset 0 0 8px rgba(255, 0, 122, 0.5);
+    /* Retained subtle scanline effect */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 100% 4px;
+    animation: scanline 15s linear infinite; /* Faster scanline */
+}
+
+/* Custom Scrollbar (Webkit) */
+.chat-box::-webkit-scrollbar-thumb,
+.history-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 238, 0, 0.4); /* Yellow/Gold semi-transparent thumb */
+    border-radius: 10px;
+    border: 2px solid transparent;
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover,
+.history-content::-webkit-scrollbar-thumb:hover {
+    background: var(--color-secondary); /* Solid Yellow on hover */
+}
+
+/* Other scrollbar properties remain the same */
+.chat-box::-webkit-scrollbar,
+.history-content::-webkit-scrollbar { width: 8px; background: transparent; }
+.chat-box, .history-content { scrollbar-width: thin; scrollbar-color: rgba(255, 238, 0, 0.3) transparent; }
+
+
+.message {
+    margin: 12px 0;
+    padding: 12px;
+    border-radius: 6px;
+    transition: transform 0.1s ease-out, box-shadow 0.3s;
+}
+
+.message:hover {
+    transform: scale(1.02);
+}
+
+.user-message {
+    color: var(--color-dark-surface);
+    /* User: Aggressive high-contrast gradient */
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); 
+    text-align: right;
+    border-right: 4px solid var(--color-secondary);
+}
+
+.bot-message {
+    color: #fff;
+    background: var(--color-chat-bg);
+    border: 1px solid var(--color-primary);
+    text-align: left;
+    box-shadow: var(--chat-glow);
+    padding-left: 15px;
+}
+
+/* Input and Button Styles */
+
+#input-box {
+    flex: 1;
+    padding: 12px;
+    margin-right: 10px;
+    border: 1px solid var(--color-primary);
+    border-radius: 3px; /* Very sharp corners */
+    background: var(--color-background);
+    color: var(--color-secondary); /* Yellow text */
+    font-size: 1em;
+    outline: none;
+    box-shadow: inset 0 0 5px var(--color-primary);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#input-box:focus {
+    border-color: var(--color-secondary);
+    box-shadow: inset var(--hover-glow);
+}
+
+#send-button {
+    padding: 12px 18px;
+    border: 1px solid var(--color-primary);
+    border-radius: 3px;
+    background: var(--color-primary);
+    color: var(--color-background); /* Dark text on bright button */
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s, transform 0.1s, box-shadow 0.3s;
+}
+
+#send-button:hover {
+    background: var(--color-secondary);
+    color: var(--color-background);
+    transform: scale(1.05);
+    box-shadow: var(--hover-glow);
+    border-color: var(--color-secondary);
+}
+
+
+/* -------------------- HISTORY SIDEBAR -------------------- */
+
+.history-sidebar {
+    width: 30px; 
+    height: 500px; 
+    position: absolute;
+    right: -30px; 
+    top: 0;
+    background: var(--color-dark-surface);
+    border: 2px solid var(--color-secondary); /* Yellow border */
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
+    transition: width 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 0 15px var(--color-secondary); 
+    z-index: 5;
+    white-space: nowrap;
+    padding-left: 5px;
+    box-sizing: border-box; 
+}
+
+/* Expanded state on hover */
+.main-container-wrapper:hover .history-sidebar {
+    width: 300px; 
+    right: -300px;
+    padding-right: 10px;
+}
+
+.history-header {
+    padding: 15px 10px;
+    font-weight: bold;
+    color: var(--color-secondary);
+    border-bottom: 1px solid var(--color-secondary);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px var(--color-secondary);
+}
+
+.history-content {
+    height: calc(100% - 50px); 
+    padding: 10px;
+    overflow-y: auto; 
+}
+
+.history-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 3px;
+    background: rgba(255, 238, 0, 0.05); /* Very subtle yellow transparent background */
+    border-left: 3px solid var(--color-secondary);
+    white-space: normal;
+    transition: background 0.2s;
+}
+
+.history-item:hover {
+    background: rgba(255, 238, 0, 0.15); /* Brighter yellow hover */
+}
+
+.history-user {
+    font-weight: bold;
+    color: var(--color-primary);
+    font-size: 0.9em;
+}
+
+.history-bot {
+    color: #ccc;
+    margin-top: 5px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 5px;
+    font-size: 0.85em;
+}
