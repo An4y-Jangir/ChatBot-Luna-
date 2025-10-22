@@ -5,9 +5,9 @@ import json
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from datetime import datetime  # <-- Ensure this is imported
+from datetime import datetime
 from pytz import timezone
-import pytz  # <-- Ensure this is imported
+import pytz
 
 import mysql.connector
 import google.generativeai as genai
@@ -47,8 +47,12 @@ def init_db():
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 user_message TEXT NOT NULL,
                 bot_response TEXT NOT NULL,
-                timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
+        """)
+        # Alter existing column to TIMESTAMP if it's DATETIME
+        cursor.execute("""
+            ALTER TABLE chat_history MODIFY COLUMN timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         """)
         conn.commit()
         cursor.close()
@@ -63,21 +67,14 @@ def log_chat_to_db(user_message, response_message):
         return
     try:
         cursor = conn.cursor()
-        
-        # --- MODIFIED SECTION ---
-        # Get the current time in UTC to ensure consistent timezone storage.
-        # This overrides the 'DEFAULT CURRENT_TIMESTAMP' from the table definition.
+        # Get current UTC time
         utc_now = datetime.now(pytz.utc)
-        
         cursor.execute(
-            # Explicitly insert the 'timestamp' column
             "INSERT INTO chat_history (user_message, bot_response, timestamp) VALUES (%s, %s, %s)",
             (user_message, response_message, utc_now)
         )
-        # --- END OF MODIFIED SECTION ---
-        
         conn.commit()
-        print("Chat logged successfully (in UTC).")
+        print("Chat logged successfully.")
     except mysql.connector.Error as err:
         print(f"MySQL Logging Error: {err}", file=sys.stderr)
     finally:
@@ -90,25 +87,26 @@ def fetch_chat_history():
         return []
     try:
         cursor = conn.cursor(dictionary=True)
-        # We will now retrieve the UTC time we stored.
+        # MySQL's CURRENT_TIMESTAMP usually stores the server's time (often UTC or local).
+        # We will retrieve it and treat it as UTC for accurate conversion.
         cursor.execute("SELECT user_message, bot_response, timestamp FROM chat_history ORDER BY id DESC LIMIT 50")
         history = cursor.fetchall()
         
-        # --- IST Timezone Conversion (This section is now correct) ---
+        # --- IST Timezone Conversion (Assuming MySQL stores UTC or local naive time) ---
         target_tz = timezone('Asia/Kolkata')
         
         processed_history = []
         for item in history:
-            # Step 1: Get the naive datetime object from MySQL (which we know is UTC)
+            # Step 1: Assume the naive datetime object from MySQL is your server's local time (or UTC).
+            # For maximum compatibility, we'll assume the time is UTC.
             naive_dt = item['timestamp']
-            
-            # Step 2: Localize the naive UTC time
             utc_dt = pytz.utc.localize(naive_dt)
 
-            # Step 3: Convert the UTC-aware time to Indian Standard Time (IST).
+            # Step 2: Convert the UTC-aware time to Indian Standard Time (IST).
             ist_time = utc_dt.astimezone(target_tz)
             
-            # Step 4: Create a clean, formatted time string
+            # Step 3: Create a clean, formatted time string including the timezone abbreviation.
+            # Example: 04:30 PM (IST)
             item['display_time'] = ist_time.strftime("%I:%M %p (%Z)") 
 
             processed_history.append(item)
