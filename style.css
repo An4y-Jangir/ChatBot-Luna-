@@ -1,19 +1,16 @@
-/* Futuristic Chatbot Design - CYBERPUNK 2077 */
 :root {
-    /* Color Palette Shift: Neon Red/Pink and Cyber Yellow/Gold */
-    --color-primary: #ff007a;       /* Neon Pink/Red (Action/Highlight) */
-    --color-secondary: #ffee00;     /* Cyber Yellow/Gold (Alert/Data) */
-    --color-background: #0a0a1a;    /* Deep Blue/Black (Night City Sky) */
-    --color-dark-surface: #1d1d2b;  /* Darker Tech Blue (Panel Surface) */
-    --color-chat-bg: #11111f;       /* Inner Chat Panel Background */
+    --color-primary: #ff007a;
+    --color-secondary: #ffee00;
+    --color-background: #0a0a1a;
+    --color-dark-surface: #1d1d2b;
+    --color-chat-bg: #11111f;
     
-    /* Sharper, High-Contrast Glows */
     --chat-glow: 0 0 5px var(--color-primary), 0 0 10px var(--color-primary), 0 0 20px rgba(255, 0, 122, 0.4);
     --hover-glow: 0 0 8px var(--color-secondary), 0 0 15px var(--color-secondary);
 }
 
 body {
-    font-family: 'Electrolize', 'Orbitron', sans-serif; /* Prefer a tech/futuristic font */
+    font-family: 'Electrolize', 'Orbitron', sans-serif;
     background: var(--color-background);
     color: #fff;
     display: flex;
@@ -23,11 +20,8 @@ body {
     margin: 0;
     padding: 50px 0;
     overflow-x: hidden;
-    /* Add a subtle whole-screen noise layer */
     position: relative;
 }
-
-/* -------------------- KEYFRAMES AND ANIMATIONS -------------------- */
 
 @keyframes pulse {
     0% { box-shadow: 0 0 5px var(--color-primary); }
@@ -45,7 +39,6 @@ body {
     100% { background-position: 0 100%; }
 }
 
-/* New: Glitch/Noise for Cyberpunk Vibe */
 @keyframes screenGlitch {
     0%, 100% { transform: translate(0, 0); }
     25% { transform: translate(1px, -1px); filter: contrast(1.1); }
@@ -53,15 +46,11 @@ body {
     75% { transform: translate(2px, 1px); filter: contrast(1.2); }
 }
 
-/* -------------------- MAIN CONTAINER -------------------- */
-
 .main-container-wrapper {
     display: flex;
     position: relative;
     transform: translateX(0);
-    /* Bouncy transition retained */
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
-    /* Apply subtle glitch to the main view */
     animation: screenGlitch 10s infinite alternate; 
 }
 
@@ -69,34 +58,31 @@ body {
     width: 400px;
     padding: 20px;
     background: var(--color-dark-surface);
-    border: 2px solid var(--color-primary); /* Thicker border */
-    border-radius: 10px; /* Sharper corners */
+    border: 2px solid var(--color-primary);
+    border-radius: 10px;
     box-shadow: var(--chat-glow);
     position: relative;
     z-index: 10;
     height: 500px;
     box-sizing: border-box;
-    animation: pulse 3s infinite alternate; /* More aggressive pulse */
+    animation: pulse 3s infinite alternate;
 }
 
-/* Wrapper push effect on hover */
 .main-container-wrapper:hover {
     transform: translateX(-150px);
 }
 
-/* -------------------- CHAT BOX ELEMENTS -------------------- */
-
 .bot-name {
     text-align: center;
-    font-size: 1.8em; /* Larger */
+    font-size: 1.8em;
     margin-bottom: 15px;
-    color: var(--color-secondary); /* Cyber Yellow name */
+    color: var(--color-secondary);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 4px; /* More spaced out */
+    letter-spacing: 4px;
     padding-bottom: 10px;
-    border-bottom: 2px dashed var(--color-secondary); /* Dashed separator */
-    animation: flicker 1.5s infinite alternate; /* Faster flicker */
+    border-bottom: 2px dashed var(--color-secondary);
+    animation: flicker 1.5s infinite alternate;
 }
 
 .chat-box {
@@ -105,29 +91,30 @@ body {
     height: 300px;
     overflow-y: auto;
     margin-bottom: 20px;
-    border-radius: 5px; /* Sharper corners */
+    border-radius: 5px;
     background: var(--color-chat-bg);
     box-shadow: inset 0 0 8px rgba(255, 0, 122, 0.5);
-    /* Retained subtle scanline effect */
     background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 100% 4px;
-    animation: scanline 15s linear infinite; /* Faster scanline */
+    animation: scanline 15s linear infinite;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-/* Custom Scrollbar (Webkit) */
 .chat-box::-webkit-scrollbar-thumb,
 .history-content::-webkit-scrollbar-thumb {
-    background: rgba(255, 238, 0, 0.4); /* Yellow/Gold semi-transparent thumb */
+    background: rgba(255, 238, 0, 0.4);
     border-radius: 10px;
     border: 2px solid transparent;
 }
 
 .chat-box::-webkit-scrollbar-thumb:hover,
 .history-content::-webkit-scrollbar-thumb:hover {
-    background: var(--color-secondary); /* Solid Yellow on hover */
+    background: var(--color-secondary);
 }
 
-/* Other scrollbar properties remain the same */
 .chat-box::-webkit-scrollbar,
 .history-content::-webkit-scrollbar { width: 8px; background: transparent; }
 .chat-box, .history-content { scrollbar-width: thin; scrollbar-color: rgba(255, 238, 0, 0.3) transparent; }
@@ -146,10 +133,13 @@ body {
 
 .user-message {
     color: var(--color-dark-surface);
-    /* User: Aggressive high-contrast gradient */
     background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); 
-    text-align: right;
     border-right: 4px solid var(--color-secondary);
+
+    display: flex;
+    align-self: flex-end;
+    max-width: 80%;
+    margin-left: auto;
 }
 
 .bot-message {
@@ -159,22 +149,34 @@ body {
     text-align: left;
     box-shadow: var(--chat-glow);
     padding-left: 15px;
+
+    display: flex;
+    align-self: flex-start;
+    max-width: 80%;
+    margin-right: auto;
 }
 
-/* Input and Button Styles */
+.input-container {
+    display: flex;
+    align-items: center;
+}
 
 #input-box {
     flex: 1;
     padding: 12px;
     margin-right: 10px;
     border: 1px solid var(--color-primary);
-    border-radius: 3px; /* Very sharp corners */
+    border-radius: 3px;
     background: var(--color-background);
-    color: var(--color-secondary); /* Yellow text */
+    color: var(--color-secondary);
     font-size: 1em;
     outline: none;
     box-shadow: inset 0 0 5px var(--color-primary);
     transition: border-color 0.2s, box-shadow 0.2s;
+    
+    height: 48px; 
+    line-height: 24px; 
+    box-sizing: border-box;
 }
 
 #input-box:focus {
@@ -184,10 +186,11 @@ body {
 
 #send-button {
     padding: 12px 18px;
+    height: 48px; 
     border: 1px solid var(--color-primary);
     border-radius: 3px;
     background: var(--color-primary);
-    color: var(--color-background); /* Dark text on bright button */
+    color: var(--color-background);
     cursor: pointer;
     font-weight: bold;
     text-transform: uppercase;
@@ -202,17 +205,14 @@ body {
     border-color: var(--color-secondary);
 }
 
-
-/* -------------------- HISTORY SIDEBAR -------------------- */
-
 .history-sidebar {
-    width: 30px; 
+    width: 0px; 
     height: 500px; 
     position: absolute;
-    right: -30px; 
+    right: -2px; 
     top: 0;
     background: var(--color-dark-surface);
-    border: 2px solid var(--color-secondary); /* Yellow border */
+    border: 2px solid var(--color-secondary);
     border-left: none;
     border-radius: 0 10px 10px 0;
     overflow: hidden;
@@ -220,15 +220,15 @@ body {
     box-shadow: 0 0 15px var(--color-secondary); 
     z-index: 5;
     white-space: nowrap;
-    padding-left: 5px;
+    padding-left: 0px; 
     box-sizing: border-box; 
 }
 
-/* Expanded state on hover */
 .main-container-wrapper:hover .history-sidebar {
     width: 300px; 
     right: -300px;
     padding-right: 10px;
+    padding-left: 5px;
 }
 
 .history-header {
@@ -252,14 +252,14 @@ body {
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 3px;
-    background: rgba(255, 238, 0, 0.05); /* Very subtle yellow transparent background */
+    background: rgba(255, 238, 0, 0.05);
     border-left: 3px solid var(--color-secondary);
     white-space: normal;
     transition: background 0.2s;
 }
 
 .history-item:hover {
-    background: rgba(255, 238, 0, 0.15); /* Brighter yellow hover */
+    background: rgba(255, 238, 0, 0.15);
 }
 
 .history-user {
