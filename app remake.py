@@ -17,7 +17,7 @@ genai.configure(api_key=API_KEY)
 
 DB_HOST = "localhost"
 DB_USER = "root"
-DB_PASSWORD = "Sam@SQL"
+DB_PASSWORD = "admin"
 DB_NAME = "chatbot_db"
 
 def get_db_connection():
@@ -172,3 +172,4 @@ def history_endpoint():
 if __name__ == "__main__":
     init_db()
     app.run(debug=True, host="127.0.0.1", port=5000)
+
